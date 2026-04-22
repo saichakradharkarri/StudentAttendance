@@ -66,7 +66,7 @@ export default function ViewAttendance() {
       if (filterSubject) params.set("subject", filterSubject);
       if (filterStudentId) params.set("student_id", filterStudentId);
 
-      const res = await fetch(`http://127.0.0.1:5001/api/attendance?${params.toString()}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5001"}/api/attendance?${params.toString()}`);
       const raw = await res.text();
       let data: { success: boolean; attendance: AttendanceRecord[]; stats: { totalStudents: number; presentToday: number; absentToday: number; attendanceRate: number }; date?: string };
       try {
@@ -106,7 +106,7 @@ export default function ViewAttendance() {
       if (filterDivision) params.set("division", filterDivision);
       if (filterSubject) params.set("subject", filterSubject);
 
-      const res = await fetch(`http://127.0.0.1:5001/api/attendance/export?${params.toString()}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5001"}/api/attendance/export?${params.toString()}`);
       const raw = await res.text();
       let data: { success: boolean; data: Array<{ studentId: string; name: string; subject: string; date: string; status: string }> };
       try {
